@@ -31,9 +31,42 @@
         <hr>
 
         <section id="main_content">
-          <p>This is a tutorial using Python. It was created by Alex Rutherford in 2013 to be used as teaching materials for a Masters level course in data science.
-A network of flight connections between global cities is considered. Using a random walk on the network, the eigenvector centrality of the network is calculated.
-The following modules and concepts are introduced; power iteration, eignvector centrality, pickle, matplotlib and NumPy.</p>
+          <h3>
+<a name="data-science" class="anchor" href="#data-science"><span class="octicon octicon-link"></span></a>Data Science</h3>
+
+<h2>
+<a name="a-tutorial-on-network-centrality-and-mapping-in-python-and-r" class="anchor" href="#a-tutorial-on-network-centrality-and-mapping-in-python-and-r"><span class="octicon octicon-link"></span></a>A Tutorial on Network Centrality and Mapping in Python and R</h2>
+
+<h1>
+<a name="1-pre-requisites" class="anchor" href="#1-pre-requisites"><span class="octicon octicon-link"></span></a>1 Pre-Requisites</h1>
+
+<p>This tutorial will rely on knowledge of
+1. Markov chains
+2. Eigenvectors (intuitive understanding and power iteration method)
+3. Familiarity with Google’s pageRank algorithm will be useful (see e.g. [1])
+4. Having read the following papers before will also help your understanding [2–4]</p>
+
+<h1>
+<a name="2-the-general-idea" class="anchor" href="#2-the-general-idea"><span class="octicon octicon-link"></span></a>2 The General Idea</h1>
+
+<p>We will examine flows of air traffic between the major global cities (more precisely Metropolitan Statis- tical Areas1). The global air traffic network is a very interesting network to study; a nice survey can be found here [2]. In this paper [3] it was found that the flow of Twitter communications between cities correlates well with air traffic flows between those same cities. Intuitively this makes sense; if 2 cities have the same principal language then its inhabitants are more likely to follow each other on Twitter and there are more likely to be air connections between the cities to facilitate trade and business.
+In this paper that came out of SCAILab [4] we used this idea to show how people spreading news of the Tag challenge made a strong effort to route the message to the tag cities compared to simply broad- casting to all of their friends at random and hoping that the message would reach the target cities. We will reproduce this work using Python to perform random walks on the network and finally produce a nice map using R.</p>
+
+<h1>
+<a name="3-the-adjacency-matrix" class="anchor" href="#3-the-adjacency-matrix"><span class="octicon octicon-link"></span></a>3 The Adjacency Matrix</h1>
+
+<p>We will start off by reading in the adjacency matrix between the cities as stored in ADJACENCY.dat (this is a NumPy array stored as a binary object). This matrix is row-normalised so each row sums to 1. In other words if city A has 100 flights leaving from it and 50 of these go to city B, 25 go to city C and 25 go to city D, the weights will be (A,B)=0.5, (A,C)=0.25 and (A,D)=0.25; the weight between i and j is the proportion of the total flights leaving i which depart for j. Note that each node in this network is a city and not an airport, for example London has several ariports; Heathrow, Stanstead and Luton. These airports are all grouped together and any flight leaving from them are grouped under the London node.2.
+First of all let us read in the file and plot the connections as a heat map.</p>
+
+<p>`import pickle</p>
+
+<h1>
+<a name="this-is-used-for-quick-readingwriting-of-python-objects-as-binary-import-numpy-as-np" class="anchor" href="#this-is-used-for-quick-readingwriting-of-python-objects-as-binary-import-numpy-as-np"><span class="octicon octicon-link"></span></a>This is used for quick reading/writing of Python objects as binary import numpy as np</h1>
+
+<p>import matplotlib.pyplot as plt
+adjacency=pickle.load(open('ADJACENCY.dat','r'))
+plt.imshow(adjacency)
+plt.show()`</p>
         </section>
 
         <footer>
